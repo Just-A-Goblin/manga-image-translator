@@ -36,7 +36,7 @@ async def dispatch(img_canvas: np.ndarray, text_mag_ratio: np.integer, translate
 		print(region_aabb.x, region_aabb.y, region_aabb.w, region_aabb.h)
 
 		# round font_size to fixed powers of 2, so later LRU cache can work
-		font_size_enlarged = findNextPowerOf2(font_size) * text_mag_ratio
+		font_size_enlarged = findNextPowerOf2(int(font_size)) * text_mag_ratio
 		enlarge_ratio = font_size_enlarged / font_size
 		font_size = font_size_enlarged
 		while True :
@@ -49,7 +49,8 @@ async def dispatch(img_canvas: np.ndarray, text_mag_ratio: np.integer, translate
 				continue
 			break
 		print('font_size:', font_size)
-
+		enlarged_h = int(enlarged_h)
+		enlarged_w = int(enlarged_w)
 		tmp_canvas = np.ones((enlarged_h * 2, enlarged_w * 2, 3), dtype = np.uint8) * 127
 		tmp_mask = np.zeros((enlarged_h * 2, enlarged_w * 2), dtype = np.uint16)
 
